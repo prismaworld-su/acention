@@ -1,6 +1,7 @@
 package su.prismaworld.acention
 
 import org.bukkit.plugin.java.JavaPlugin
+import su.prismaworld.acention.config.PluginSettings
 
 class Acention : JavaPlugin() {
 
@@ -9,9 +10,13 @@ class Acention : JavaPlugin() {
             private set
     }
 
+    lateinit var settings: PluginSettings
+        private set
+
     fun loadSettings() {
         saveDefaultConfig()
         reloadConfig()
+        settings = PluginSettings.load(config, logger)
     }
 
     override fun onEnable() {
