@@ -2,6 +2,10 @@ package su.prismaworld.acention
 
 import org.bukkit.plugin.java.JavaPlugin
 import su.prismaworld.acention.config.PluginSettings
+import su.prismaworld.acention.portal.EndPortalListener
+import su.prismaworld.acention.portal.EndPortalManager
+import su.prismaworld.acention.portal.PortalStorage
+import java.io.File
 
 class Acention : JavaPlugin() {
 
@@ -13,6 +17,8 @@ class Acention : JavaPlugin() {
     lateinit var settings: PluginSettings
         private set
 
+    private var portalManager: EndPortalManager? = null
+
     fun loadSettings() {
         saveDefaultConfig()
         reloadConfig()
@@ -23,9 +29,16 @@ class Acention : JavaPlugin() {
         instance = this
 
         loadSettings()
+
+        val manager = EndPortalManager(this, PortalStorage(File(dataFolder, "data.yml"), logger))
+        manager.start()
+        portalManager = manager
+
+        server.pluginManager.registerEvents(EndPortalListener(this, manager), this)
     }
 
     override fun onDisable() {
-        // Plugin shutdown logic
+        portalManager?.stop()
+        portalManager = null
     }
 }
