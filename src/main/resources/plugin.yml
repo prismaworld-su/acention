@@ -1,0 +1,8 @@
+name: acention
+version: '${version}'
+
+main: su.prismaworld.acention.Acention
+api-version: '26.3'
+load: POSTWORLD
+
+authors: [ loseex ]
