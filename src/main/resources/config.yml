@@ -1,0 +1,105 @@
+# ============================================================
+#  Acention — настройки портала в Энд
+#  Все тексты поддерживают формат MiniMessage:
+#  https://docs.advntr.dev/minimessage/format.html
+#  Пустая строка ("") у сообщения отключает его отправку.
+#  Применить изменения без перезапуска: /end reload
+# ============================================================
+
+portal:
+  # На сколько секунд открывается портал после активации (600 = 10 минут).
+  open-duration: 600
+
+  # Предметы, которые нужно бросить в портал, чтобы открыть его.
+  # Формат: НАЗВАНИЕ_МАТЕРИАЛА: количество
+  # Список материалов: https://jd.papermc.io/paper/org/bukkit/Material.html
+  # Нужны ВСЕ перечисленные предметы. Их можно приносить по частям и разными игроками,
+  # прогресс сохраняется. Лишние и ненужные предметы портал выбрасывает обратно.
+  # Если список пуст — открыть портал можно только через меню /end.
+  required-items:
+    NETHER_STAR: 1
+
+  # Звук, который слышат все игроки на сервере при открытии портала.
+  open-sound:
+    enabled: true
+    # Ключ звука: https://minecraft.wiki/w/Sounds.json
+    key: "minecraft:entity.ender_dragon.growl"
+    volume: 1.0
+    pitch: 1.0
+
+time:
+  # Формат даты и времени (шаблон java.time.format.DateTimeFormatter).
+  format: "dd.MM.yyyy HH:mm:ss"
+  # Часовой пояс, например "Europe/Moscow". Пусто — часовой пояс сервера.
+  zone: ""
+  # Подписи для длительностей (например "9 мин 59 сек").
+  units:
+    hours: "ч"
+    minutes: "мин"
+    seconds: "сек"
+
+messages:
+  # Доступно во всех сообщениях как <prefix>.
+  prefix: "<dark_purple>[Энд]</dark_purple> "
+  # <player> — кто открыл, <duration> — на сколько.
+  portal-opened: "<prefix><gray>Портал в Энд открыт игроком <gold><player></gold> на <gold><duration></gold>!"
+  portal-closed: "<prefix><gray>Портал в Энд закрылся."
+  # <player> — кто закрыл.
+  portal-closed-by: "<prefix><gray>Портал в Энд закрыт игроком <gold><player></gold>."
+  # Показывается в строке действий при попытке войти в закрытый портал.
+  # <requirements> — что ещё нужно бросить.
+  portal-locked: "<red>Портал запечатан. Бросьте в него: <requirements>"
+  portal-locked-no-items: "<red>Портал запечатан."
+  # <item> — предмет, <amount> — сколько принято, <requirements> — что ещё нужно.
+  item-accepted: "<prefix><gray>Портал поглотил <white><item> x<amount></white>. Осталось: <requirements>"
+  item-not-needed: "<prefix><red>Портал не принимает этот предмет."
+  # Формат одного предмета в <requirements>: <item>, <current>, <required>, <missing>.
+  requirement-entry: "<white><item> x<missing></white>"
+  requirement-separator: "<gray>, "
+  no-permission: "<prefix><red>У вас нет прав."
+  players-only: "<prefix><red>Эту команду может использовать только игрок."
+  already-open: "<prefix><red>Портал уже открыт."
+  already-closed: "<prefix><red>Портал уже закрыт."
+  reloaded: "<prefix><green>Конфигурация перезагружена."
+  # Подставляется вместо имени, если открывшего определить нельзя (например, предмет выбросил раздатчик).
+  unknown-player: "Неизвестно"
+
+gui:
+  title: "<dark_purple>Портал в Энд"
+  # Плейсхолдеры: <player> — кто открыл, <opened_at> — когда, <remaining> — сколько осталось.
+  status-open:
+    name: "<green><bold>Портал открыт"
+    lore:
+      - "<gray>Открыл: <white><player>"
+      - "<gray>Когда: <white><opened_at>"
+      - "<gray>Закроется через: <white><remaining>"
+  status-closed:
+    name: "<red><bold>Портал закрыт"
+    lore:
+      - "<gray>Последнее открытие:"
+      - "<gray>Кем: <white><player>"
+      - "<gray>Когда: <white><opened_at>"
+  status-never-opened:
+    name: "<red><bold>Портал закрыт"
+    lore:
+      - "<gray>Портал ещё ни разу не открывался."
+  requirements:
+    name: "<light_purple>Ключ от портала"
+    # Строки списка: <item>, <current>, <required>.
+    line-done: "<green>✔ <item>: <current>/<required>"
+    line-pending: "<gray>✘ <white><item>: <current>/<required>"
+    empty: "<gray>Открывается только администратором."
+    footer:
+      - ""
+      - "<gray>Бросьте предметы в портал,"
+      - "<gray>чтобы открыть его."
+  open-button:
+    # <duration> — на сколько откроется портал.
+    name: "<green><bold>Открыть портал"
+    lore:
+      - "<gray>Открыть портал на <white><duration></white>"
+      - "<gray>без предметов."
+  close-button:
+    name: "<red><bold>Закрыть портал"
+    lore:
+      - "<gray>Закрыть портал досрочно."
