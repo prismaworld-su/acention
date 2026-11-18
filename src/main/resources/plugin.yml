@@ -7,7 +7,19 @@ load: POSTWORLD
 
 authors: [ loseex ]
 
+# Команда /end регистрируется в коде (Paper Brigadier API).
 permissions:
+  acention.end:
+    description: Открыть меню /end с информацией о портале в Энд.
+    default: op
+  acention.end.manage:
+    description: Открывать и закрывать портал в Энд кнопками в меню /end.
+    default: op
+    children:
+      acention.end: true
+  acention.reload:
+    description: Перезагрузить конфигурацию командой /end reload.
+    default: op
   acention.portal.bypass:
     description: Проходить через закрытый портал в Энд.
     default: false

@@ -17,6 +17,7 @@ import org.bukkit.util.BoundingBox
 import org.bukkit.util.Vector
 import su.prismaworld.acention.Acention
 import su.prismaworld.acention.config.PluginSettings
+import su.prismaworld.acention.gui.EndPortalGui
 import java.time.Instant
 import java.util.UUID
 
@@ -69,6 +70,7 @@ class EndPortalManager(private val plugin: Acention, private val storage: Portal
         settings.openSound?.let { sound ->
             Bukkit.getOnlinePlayers().forEach { it.playSound(sound, Sound.Emitter.self()) }
         }
+        EndPortalGui.refreshAll()
     }
 
     /** Досрочно закрывает портал. Возвращает `false`, если он и так закрыт. */
@@ -82,6 +84,7 @@ class EndPortalManager(private val plugin: Acention, private val storage: Portal
         storage.save(data)
 
         settings.texts.send(Bukkit.getServer(), "messages.portal-closed-by", Placeholder.unparsed("player", closedBy))
+        EndPortalGui.refreshAll()
         return true
     }
 
@@ -125,6 +128,7 @@ class EndPortalManager(private val plugin: Acention, private val storage: Portal
         }
 
         storage.save(data)
+        EndPortalGui.refreshAll()
         thrower?.let {
             settings.texts.send(
                 it, "messages.item-accepted",
@@ -162,6 +166,7 @@ class EndPortalManager(private val plugin: Acention, private val storage: Portal
             openAnnounced = false
             settings.texts.send(Bukkit.getServer(), "messages.portal-closed")
         }
+        EndPortalGui.refreshAll()
     }
 
     /**
